@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $user = $_SESSION['username'];
+    $user = $_SESSION['username'] or header("Location: ./login.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,6 +27,5 @@
         </div>
         <a href="./my_account.php">My Account</a>
         <a href="./login.php"><button type="button">Log Out</button></a>
-        <a href="./change_password.php"><button type="button">Change Password</button></a>
     </body>
 </html>

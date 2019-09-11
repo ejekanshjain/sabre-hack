@@ -79,7 +79,7 @@
                     <input type="text" id="lastname" class="fadeIn third" name="lastname" placeholder="Last Name" required>
                     <input type="email" id="email" class="fadeIn fourth" name="email" placeholder="E-Mail" required>
                     <input type="number" id="contactnumber" class="fadeIn fifth" name="contactnumber" placeholder="Contact Number" required>
-                    <input type="text" id="username" class="fadeIn sixth" name="username" placeholder="username" required>
+                    <input type="text" id="username" class="fadeIn sixth" name="username" placeholder="Username" required>
                     <input type="password" id="password" class="fadeIn seventh" name="password" placeholder="Password" onblur="validatePass();" required>
                     <input type="password" id="confirmpassword" class="fadeIn eighth" name="confirmpassword" placeholder="Confirm Password" onblur="confirmPass();" required>
                     <input type="submit" id="signupButton" class="fadeIn ninth" value="Sign Up">

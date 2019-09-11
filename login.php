@@ -53,8 +53,8 @@
                 </div>
                 <form method="POST" action="./login.php">
                     <div class="msg"><?php echo $msg ?></div>
-                    <input type="text" id="username" class="fadeIn second" name="username" placeholder="username" required>
-                    <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
+                    <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username" required>
+                    <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
                     <input type="submit" class="fadeIn fourth" value="Log In">
                 </form>
                 <div id="formFooter" class="fadeIn fifth">

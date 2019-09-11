@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $user = $_SESSION['username'];
+    $user = $_SESSION['username'] or header("Location: ./login.php");
     $msg="";
     include './db_connect.php';
     $SQL = "SELECT * FROM users WHERE username='$user'";
@@ -12,36 +12,26 @@
     $contactnumber = $db_field['contactnumber'];
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         extract($_POST);
-        if($newusername=="" OR $newfirstname=="" OR $newlastname=="" OR $newemail==""){
+        if($newfirstname=="" OR $newlastname=="" OR $newemail==""){
             $msg="Please fill complete details";
         }
         else{
-            $SQL = "SELECT * FROM users WHERE username='$newusername'";
-            $result = mysqli_query($db_handle, $SQL);
-            if(mysqli_num_rows($result)>0){
-                $msg="Username already exists";
-            }
-            else{
+            if($newemail != $email){
                 $SQL = "SELECT * FROM users WHERE email='$newemail'";
-                $result = mysqli_query($db_handle, $SQL);
+                $result = mysqli_query($db_handle,$SQL);
                 if(mysqli_num_rows($result)>0){
                     $msg="Email already linked to another account";
                 }
                 else{
-                    $SQL = "SELECT * FROM users WHERE contactnumber='$newcontactnumber'";
+                    $SQL = "UPDATE users SET `firstname`='$newfirstname', `lastname`='$newlastname', `email`='$newemail', `contactnumber`='$newcontactnumber' WHERE `username`='$user'";
                     $result = mysqli_query($db_handle, $SQL);
-                    if(mysqli_num_rows($result)>0){
-                        $msg="Contact Number already linked to another account";
-                    }
-                    else{
-                        $SQL = "UPDATE users SET `username`='$newusername', `firstname`='$newfirstname', `lastname`='$newlastname', `email`='$newemail', `contactnumber`='$newcontactnumber' WHERE `username`='$user'";
-                        $result = mysqli_query($db_handle, $SQL);
-                        mysqli_close($db_handle);
-                        $user = $newusername;
-                        $_SESSION['username'] = $user;
-                        header("Location: my_account_change_details.php");
-                    }
+                    echo '<script src="./js/my_account.js"></script>','<script type="text/javascript">successful();</script>';
                 }
+            }
+            else{
+                $SQL = "UPDATE users SET `firstname`='$newfirstname', `lastname`='$newlastname', `email`='$newemail', `contactnumber`='$newcontactnumber' WHERE `username`='$user'";
+                $result = mysqli_query($db_handle, $SQL);
+                echo '<script src="./js/my_account.js"></script>','<script type="text/javascript">successful();</script>';
             }
         }
     }
@@ -66,7 +56,7 @@
         <!-- Preloader End -->
         <div><?php echo $msg ?></div>
         <form method="POST" action="./my_account.php">
-            <input type="text" id="username" name="newusername" value="<?php echo $user ?>" required>
+            <input type="text" id="username" name="username" value="<?php echo $user ?>" readonly>
             <input type="text" id="firstname" name="newfirstname" value="<?php echo $firstname ?>" required>
             <input type="text" id="lastname" name="newlastname" value="<?php echo $lastname ?>" required>
             <input type="email" id="email" name="newemail" value="<?php echo $email ?>" required>

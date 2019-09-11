@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $user = $_SESSION['username'];
+    $user = $_SESSION['username'] or header("Location: ./login.php");
     $pass = "";
     $msg="";
     if($_SERVER['REQUEST_METHOD']=='POST'){
@@ -24,9 +24,8 @@
         else{
             $SQL = "UPDATE users SET `password`='$new_pass' WHERE username='$user'";
             $result = mysqli_query($db_handle, $SQL);
-            mysqli_close($db_handle);
             $_SESSION['username'] = $user;
-            header("Location: ./change_password_successful.php");
+            echo '<script src="./js/change_password.js"></script>','<script type="text/javascript">successful();</script>';
         }
         mysqli_close($db_handle);
     }
